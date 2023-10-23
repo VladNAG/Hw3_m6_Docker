@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  my-react-app:
+    image: ba47e6f791702ea998bc821c40eff16b3e0c8d09ec63f2001c7ff42df54d7f2b
+    build: my-react-app/my-react-app
+    container_name: react
+    ports:
+      - 5001:3000
+  
+  asp-core-webapi:
+    image: bc1f0ded54a143c7059580b684c5b4b18467b31b5f76bdf04e5e9850e0ef4cb5
+    build: HW2_module6/HW2_module6
+    container_name: aspnetapp
+    ports:
+      - 3333:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: lde.cloudbeaver
+    ports:
+      - 8002:8978
+
+networks:
+  default:
+    driver: bridge
+    internal: false
+    attachable: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.4/24
+          gateway: 192.168.0.4
